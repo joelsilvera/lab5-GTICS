@@ -16,7 +16,7 @@ public class ConfiguracionSpringSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/ventanaLogin").loginProcessingUrl("/procesarLoginForm")
+                .loginPage("").loginProcessingUrl("/procesarLoginForm")
                 .defaultSuccessUrl("/redireccionarPorRol", true);
 
         http.authorizeRequests()
