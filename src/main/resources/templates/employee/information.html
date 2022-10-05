@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group">
                     <label for="departmentId">Departamento</label>
-                    <select class="form-control" name="departmentId" id="departmentId" th:field="*{department}">
+                    <select class="form-control" name="departmentId" id="departmentId" th:value="${department.getDepartmentName()()}">
                         <option>-Seleccionar-</option>
 
                     </select>
@@ -44,7 +44,8 @@
                 <div class="form-group">
                     <label for="jobId">Trabajo</label>
                     <select class="form-control" name="jobId" id="jobId" th:field="*{job}">
-                        <option>-Seleccionar-</option>
+                        <input type="text" class="form-control disabled" name="email" th:value="${job.getJobTitle()}">
+
 
                     </select>
                 </div>
