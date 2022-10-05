@@ -56,14 +56,13 @@ public class EmployeeController {
 
     //Guardar Empleado
     @PostMapping("empleado/guardar")
-    public String saveEmployee(  ) {
-        //        COMPLETAR
-        return "XXXXXX";
+    public String saveEmployee(Employee employee) {
+        employeeRepository.save(employee);
+        return "redirect:/empleado/lista";
     }
 
     @GetMapping("empleado/nuevo")
-    public String newEmployee(Model model) {
-        //        COMPLETAR
+    public String newEmployee() {
         return "employee/newForm";
     }
 }
