@@ -20,17 +20,19 @@ public class EmployeeController {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    @GetMapping({"empleado/info"})
+    @GetMapping({"empleado/info/"})
     public String infoempleado(Model model, @PathVariable(name = "id") Integer id){
         Optional<Employee> optEmp = employeeRepository.findById(id);
-
-        //List<Employee> listaempleados = employeeRepository.findAll(Sort.by("first_name"));
-
-        //model.addAttribute("listaemployee", listaempleados);
-
-        return "employee/information";
+        if(optEmp.isPresent()) {
+            Employee employee = optEmp.get();
+            model.addAttribute("employee", employee);
+            return "employee/information";
+        }else{
+            return "redirect:/empleado/lista";
+        }
     }
-
+    //List<Employee> listaempleados = employeeRepository.findAll(Sort.by("first_name"));
+    //model.addAttribute("listaemployee", listaempleados);
 
     @GetMapping({"empleado/lista", "empleado"})
     public String listEmployee(Model model, @RequestParam(name = "search",required = false) String search, @RequestParam(name = "order", required = false) Integer order, RedirectAttributes attributes){
