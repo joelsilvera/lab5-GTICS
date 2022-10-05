@@ -20,7 +20,7 @@
             <h2>
                 Información de Empleado
             </h2>
-            <form method="POST" action= " " >
+            <form method="POST" th:action="@{'/empleado/guardar'}">
                 <input type="hidden" name="employeeId" id="employeeId" value="...">
                 <div class="form-group">
                     <label for="firstName">Nombre</label>
