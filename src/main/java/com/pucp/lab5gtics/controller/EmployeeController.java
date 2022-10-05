@@ -1,7 +1,11 @@
 package com.pucp.lab5gtics.controller;
 
+import com.pucp.lab5gtics.entity.Department;
 import com.pucp.lab5gtics.entity.Employee;
+import com.pucp.lab5gtics.entity.Job;
+import com.pucp.lab5gtics.repository.DepartmentRepository;
 import com.pucp.lab5gtics.repository.EmployeeRepository;
+import com.pucp.lab5gtics.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -18,10 +22,34 @@ public class EmployeeController {
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    DepartmentRepository departmentRepository;
+
+    @Autowired
+    JobRepository jobRepository;
+
     @GetMapping(value = {"", "/", "lista"})
     public String listEmployee(Model model){
         model.addAttribute("listaEmpleados", employeeRepository.findAll());
         return "employee/list";
+    }
+
+    @GetMapping({"empleado/info/"})
+    public String infoempleado(Model model, @PathVariable(name = "id") Integer id){
+        Optional<Employee> optEmp = employeeRepository.findById(id);
+        Optional<Department> optdep = departmentRepository.findById(optEmp.get().getDepartment().getId());
+        Optional<Job> optjob = jobRepository.findById(optEmp.get().getJob().getId());
+
+        if(optEmp.isPresent()) {
+            Employee employee = optEmp.get();
+            model.addAttribute("employee", employee);
+            model.addAttribute("department", optdep.get());
+            model.addAttribute("job",optjob.get());
+            return "employee/information";
+        }else{
+            return "redirect:/empleado/lista";
+        }
     }
 
 
